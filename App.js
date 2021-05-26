@@ -1,21 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import {NavigationContainer} from '@react-navigation/native'
+import {createStackNavigator} from '@react-navigation/stack'
+import UserList from './src/screens/UserList'
+import UserForm from './src/screens/UserForm'
+import { Button,Icon } from 'react-native-elements'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Stack = createStackNavigator()
+
+export default function App(props){
+    return(
+        <NavigationContainer>
+            <Stack.Navigator 
+                initialRouteName='UserList'
+                screenOptions={screenOptions}>
+                <Stack.Screen 
+                    name='UserList'
+                    component={UserList}
+                    options={({ navigation }) => {
+                      return{
+                        title: "Lista de Usuários",
+                        headerRight: () => (
+                          <Button
+                            onPress={() => navigation.navigate("UserForm")}
+                            type="clear"
+                            icon={<Icon name="add" size={25} color="white" />}
+                          />
+                        )
+                      }
+                    }}
+                />
+                <Stack.Screen 
+                    name='UserForm'
+                    component={UserForm}
+                    options={{
+                      title:"Formulário de Usuários"
+                    }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: '#f4511e'
   },
-});
+  headerTintColor: '#fff',
+  headerTitleStyle:{
+    fontWeight: 'bold',
+  }
+}
