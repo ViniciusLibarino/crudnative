@@ -1,4 +1,5 @@
 import React from "react";
+import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import UserList from "./src/screens/UserList";
@@ -12,6 +13,11 @@ export default function App(props) {
   return (
     <UsersProvider>
       <NavigationContainer>
+        <StatusBar
+          style="dark"
+          backgroundColor={"#f4511e"} 
+          translucent={false}
+        />
         <Stack.Navigator
           initialRouteName="UserList"
           screenOptions={screenOptions}
